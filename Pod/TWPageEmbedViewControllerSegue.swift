@@ -9,14 +9,11 @@
 import UIKit
 
 public class TWPageEmbedViewControllerSegue: UIStoryboardSegue {
-    
-    
     public override func perform() {
         if let sourceViewController = sourceViewController as? TWPageEmbedViewController {
             sourceViewController.addEmbedController(destinationViewController)
         } else {
             assertionFailure("SourceViewController must be TWPageEmbedViewController")
         }
-        
     }
 }
