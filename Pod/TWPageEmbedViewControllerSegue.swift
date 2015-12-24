@@ -8,14 +8,13 @@
 
 import UIKit
 
-class HDPageEmbedViewControllerSegue: UIStoryboardSegue {
-    
+class TWPageEmbedViewController: UIStoryboardSegue {
     
     final override func perform() {
         if let sourceViewController = sourceViewController as? TWPageEmbedViewController {
             sourceViewController.addEmbedController(destinationViewController)
         } else {
-            assertionFailure("SourceViewController must be HDPageEmbedViewController!")
+            assertionFailure("SourceViewController must be TWPageEmbedViewController")
         }
     }
     

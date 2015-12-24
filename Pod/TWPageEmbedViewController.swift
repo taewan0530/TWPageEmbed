@@ -33,7 +33,7 @@ public class TWPageEmbedViewController: UIViewController {
     }
     
     @IBInspectable var embedCount: Int = 0
-    @IBOutlet weak var scrollView: UIScrollView?
+    @IBOutlet public weak var scrollView: UIScrollView?
     
     override public func viewDidLoad() {
         super.viewDidLoad()
