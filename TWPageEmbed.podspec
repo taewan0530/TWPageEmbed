@@ -1,8 +1,8 @@
 
 Pod::Spec.new do |s|
-  s.name         = 'TWPageEmbedView'
+  s.name         = 'TWPageEmbed'
   s.version      = "0.0.1"
-  s.summary      = 'TWPageEmbedView'
+  s.summary      = 'TWPageEmbed'
   s.homepage     = 'https://github.com/taewan0530'
   s.license      = { :type => 'MIT', :file => 'LICENSE' }
   s.author       = { 'taewan' => 'taewan0530@daum.net' }

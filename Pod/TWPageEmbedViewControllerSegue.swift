@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TWPageEmbedViewController: UIStoryboardSegue {
+class TWPageEmbedViewControllerSegue: UIStoryboardSegue {
     
     final override func perform() {
         if let sourceViewController = sourceViewController as? TWPageEmbedViewController {
