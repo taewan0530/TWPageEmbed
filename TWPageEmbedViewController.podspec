@@ -1,12 +1,12 @@
-
+@version = "0.0.1"
 Pod::Spec.new do |s|
   s.name         = 'TWPageEmbedViewController'
-  s.version      = "0.0.1"
+  s.version      = @version
   s.summary      = 'TWPageEmbedViewController'
   s.homepage     = 'https://github.com/taewan0530'
   s.license      = { :type => 'MIT', :file => 'LICENSE' }
   s.author       = { 'taewan' => 'taewan0530@daum.net' }
-  s.source       = { :git => "https://github.com/taewan0530/TWPageEmbedViewController.git", :tag => s.version.to_s }
+  s.source       = { :git => 'https://github.com/taewan0530/TWPageEmbedViewController.git', :tag => @version }
   s.source_files = 'Pod/**/*.{swift}',
   
   s.requires_arc = true
