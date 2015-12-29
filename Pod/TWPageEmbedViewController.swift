@@ -14,6 +14,7 @@ public class TWPageEmbedViewController: UIViewController {
     private var embedControllers = [UIViewController]()
     private var currentController: UIViewController?
     
+    public var changeAnimation: Bool = true
     public var currentPage: Int = 0 {
         didSet{
             currentPage = max(0, min(embedCount - 1, currentPage))
@@ -26,7 +27,7 @@ public class TWPageEmbedViewController: UIViewController {
                     currentController = embedControllers[currentPage]
                 }
                 
-                scrollView.scrollRectToVisible(frame, animated: true)
+                scrollView.scrollRectToVisible(frame, animated: changeAnimation)
             }
         }//didset
     }
