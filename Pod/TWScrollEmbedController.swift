@@ -1,5 +1,5 @@
 //
-//  TWPageEmbedViewController.swift
+//  TWScrollEmbedController.swift
 //  TWPageEmbedViewController
 //
 //  Created by kimtaewan on 2015. 12. 24..
@@ -9,7 +9,7 @@
 
 import UIKit
 
-public class TWPageEmbedViewController: UIViewController {
+public class TWScrollEmbedController: UIViewController {
     
     private var embedControllers = [UIViewController]()
     private var currentController: UIViewController?

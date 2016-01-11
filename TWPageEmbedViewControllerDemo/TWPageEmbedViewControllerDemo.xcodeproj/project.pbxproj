@@ -12,8 +12,10 @@
 		327C39E11C2BB97F0053616A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 327C39DF1C2BB97F0053616A /* Main.storyboard */; };
 		327C39E31C2BB97F0053616A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 327C39E21C2BB97F0053616A /* Assets.xcassets */; };
 		327C39E61C2BB97F0053616A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 327C39E41C2BB97F0053616A /* LaunchScreen.storyboard */; };
-		327C39EE1C2BBE8F0053616A /* TWPageEmbedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 327C39ED1C2BBE8F0053616A /* TWPageEmbedViewController.swift */; };
-		327C39F11C2BBEC80053616A /* TWPageEmbedViewControllerSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 327C39F01C2BBEC80053616A /* TWPageEmbedViewControllerSegue.swift */; };
+		327C39EE1C2BBE8F0053616A /* TWScrollEmbedController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 327C39ED1C2BBE8F0053616A /* TWScrollEmbedController.swift */; };
+		327C39F11C2BBEC80053616A /* TWScrollEmbedSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 327C39F01C2BBEC80053616A /* TWScrollEmbedSegue.swift */; };
+		328B00A31C438AE6009E7C82 /* TWContainerEmbedController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 328B00A21C438AE6009E7C82 /* TWContainerEmbedController.swift */; };
+		328B00A51C438B1E009E7C82 /* TWContainerEmbedSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 328B00A41C438B1E009E7C82 /* TWContainerEmbedSegue.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,8 +26,10 @@
 		327C39E21C2BB97F0053616A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		327C39E51C2BB97F0053616A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		327C39E71C2BB97F0053616A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		327C39ED1C2BBE8F0053616A /* TWPageEmbedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TWPageEmbedViewController.swift; path = ../Pod/TWPageEmbedViewController.swift; sourceTree = "<group>"; };
-		327C39F01C2BBEC80053616A /* TWPageEmbedViewControllerSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TWPageEmbedViewControllerSegue.swift; path = ../Pod/TWPageEmbedViewControllerSegue.swift; sourceTree = "<group>"; };
+		327C39ED1C2BBE8F0053616A /* TWScrollEmbedController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TWScrollEmbedController.swift; path = ../Pod/TWScrollEmbedController.swift; sourceTree = "<group>"; };
+		327C39F01C2BBEC80053616A /* TWScrollEmbedSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TWScrollEmbedSegue.swift; path = ../Pod/TWScrollEmbedSegue.swift; sourceTree = "<group>"; };
+		328B00A21C438AE6009E7C82 /* TWContainerEmbedController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TWContainerEmbedController.swift; path = ../Pod/TWContainerEmbedController.swift; sourceTree = "<group>"; };
+		328B00A41C438B1E009E7C82 /* TWContainerEmbedSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TWContainerEmbedSegue.swift; path = ../Pod/TWContainerEmbedSegue.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,8 +76,10 @@
 		327C39EF1C2BBEB20053616A /* TWPageEmbedViewController */ = {
 			isa = PBXGroup;
 			children = (
-				327C39ED1C2BBE8F0053616A /* TWPageEmbedViewController.swift */,
-				327C39F01C2BBEC80053616A /* TWPageEmbedViewControllerSegue.swift */,
+				327C39ED1C2BBE8F0053616A /* TWScrollEmbedController.swift */,
+				327C39F01C2BBEC80053616A /* TWScrollEmbedSegue.swift */,
+				328B00A21C438AE6009E7C82 /* TWContainerEmbedController.swift */,
+				328B00A41C438B1E009E7C82 /* TWContainerEmbedSegue.swift */,
 			);
 			name = TWPageEmbedViewController;
 			sourceTree = "<group>";
@@ -149,10 +155,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				327C39F11C2BBEC80053616A /* TWPageEmbedViewControllerSegue.swift in Sources */,
+				327C39F11C2BBEC80053616A /* TWScrollEmbedSegue.swift in Sources */,
 				327C39DE1C2BB97F0053616A /* ViewController.swift in Sources */,
 				327C39DC1C2BB97F0053616A /* AppDelegate.swift in Sources */,
-				327C39EE1C2BBE8F0053616A /* TWPageEmbedViewController.swift in Sources */,
+				327C39EE1C2BBE8F0053616A /* TWScrollEmbedController.swift in Sources */,
+				328B00A51C438B1E009E7C82 /* TWContainerEmbedSegue.swift in Sources */,
+				328B00A31C438AE6009E7C82 /* TWContainerEmbedController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

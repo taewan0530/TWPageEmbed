@@ -1,5 +1,5 @@
 //
-//  TWPageEmbedViewControllerSegue.swift
+//  TWScrollEmbedControllerSegue.swift
 //  TWPageEmbedViewController
 //
 //  Created by kimtaewan on 2015. 12. 24..
@@ -8,12 +8,12 @@
 
 import UIKit
 
-public class TWPageEmbedViewControllerSegue: UIStoryboardSegue {
+public class TWScrollEmbedSegue: UIStoryboardSegue {
     public override func perform() {
-        if let sourceViewController = sourceViewController as? TWPageEmbedViewController {
+        if let sourceViewController = sourceViewController as? TWScrollEmbedController {
             sourceViewController.addEmbedController(destinationViewController)
         } else {
-            assertionFailure("SourceViewController must be TWPageEmbedViewController")
+            assertionFailure("SourceViewController must be TWScrollEmbedViewController")
         }
     }
 }
