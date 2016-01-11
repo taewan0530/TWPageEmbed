@@ -20,8 +20,7 @@ public class TWContainerEmbedSegue: UIStoryboardSegue {
             assertionFailure("TWContainerEmbedSegue must have identifier")
             return
         }
-        print(__FUNCTION__, identifier)
-        containerEmbedController.controllerDictionary[identifier] = self.destinationViewController
+        containerEmbedController.addEmbedController(identifier, viewController: self.destinationViewController)
     }
 }
 

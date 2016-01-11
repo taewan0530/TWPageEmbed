@@ -12,10 +12,8 @@ import UIKit
 public class TWContainerEmbedController: UIViewController {
     private var transitionInProgress = false
     
-    internal var controllerDictionary = [String: UIViewController]()
-    internal var durationDictionary = [String: CGFloat]()
-    
-    @IBOutlet weak var containerView: UIView?
+    private var controllerDictionary = [String: UIViewController]()
+    private var durationDictionary = [String: CGFloat]()
     
     private var _currentSegueIdentifier: String?
     private var _currentDuration: CGFloat = 0
@@ -39,7 +37,9 @@ public class TWContainerEmbedController: UIViewController {
         }
     }
     
+    @IBOutlet weak var containerView: UIView?
     @IBInspectable var initIdentifier: String?
+
     
     public override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,8 +51,6 @@ public class TWContainerEmbedController: UIViewController {
     }
     
     public override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        print(__FUNCTION__, segue.identifier)
-        
         guard let _ = segue as? TWContainerEmbedSegue else {
             super.prepareForSegue(segue, sender: sender)
             return
@@ -75,6 +73,15 @@ public class TWContainerEmbedController: UIViewController {
         }
     }
     
+    
+    private func containerTargetView() -> UIView {
+        return self.containerView ?? self.view
+    }
+}
+
+//MARK - change Controller
+extension TWContainerEmbedController {
+    
     private func swapFromViewController(fromViewController: UIViewController, toViewController: UIViewController) {
         let parentView = containerTargetView()
         toViewController.view.frame = parentView.bounds
@@ -95,8 +102,17 @@ public class TWContainerEmbedController: UIViewController {
             }
         }
     }
+}
+
+//MARK - addController
+extension TWContainerEmbedController {
     
-    private func containerTargetView() -> UIView {
-        return self.containerView ?? self.view
+    public func addEmbedControllerChangeDuration(identifier: String , changeDuration: CGFloat = 0){
+        durationDictionary[identifier] = changeDuration
+    }
+    
+    public func addEmbedController(identifier: String , viewController: UIViewController, changeDuration: CGFloat = 0){
+        controllerDictionary[identifier] = viewController
+        durationDictionary[identifier] = changeDuration
     }
 }
