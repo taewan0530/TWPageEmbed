@@ -18,6 +18,8 @@ public class TWContainerEmbedController: UIViewController {
     private var _currentSegueIdentifier: String?
     private var _currentDuration: CGFloat = 0
     
+    private var currentViewController: UIViewController?
+    
     public var currentSegueIdentifier: String? {
         get {
             return _currentSegueIdentifier
@@ -28,7 +30,8 @@ public class TWContainerEmbedController: UIViewController {
                 if let toViewController = controllerDictionary[identifier] {
                     self.transitionInProgress = true
                     self._currentDuration = durationDictionary[identifier] ?? 0
-                    self.swapFromViewController(self.childViewControllers[0], toViewController: toViewController)
+                    
+                    self.swapFromViewController(toViewController)
                 } else {
                     self.performSegueWithIdentifier(identifier, sender: nil)
                 }
@@ -39,7 +42,7 @@ public class TWContainerEmbedController: UIViewController {
     
     @IBOutlet weak var containerView: UIView?
     @IBInspectable var initIdentifier: String?
-
+    
     
     public override func viewDidLoad() {
         super.viewDidLoad()
@@ -56,21 +59,14 @@ public class TWContainerEmbedController: UIViewController {
             return
         }
         
-        if 0 == self.childViewControllers.count {
-            self.addChildViewController(segue.destinationViewController)
-            let destView = segue.destinationViewController.view
-            destView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
-            let parentView = containerTargetView()
-            destView.frame = parentView.bounds
-            parentView.addSubview(destView)
-            segue.destinationViewController.didMoveToParentViewController(self)
-        } else {
+        if currentViewController != nil {
             guard let identifier = segue.identifier else { return }
             if identifier == currentSegueIdentifier { return }
             self._currentDuration = durationDictionary[identifier] ?? 0
-            self.transitionInProgress = true
-            self.swapFromViewController(self.childViewControllers[0], toViewController: segue.destinationViewController)
         }
+        
+        self.transitionInProgress = true
+        self.swapFromViewController(segue.destinationViewController)
     }
     
     
@@ -82,10 +78,25 @@ public class TWContainerEmbedController: UIViewController {
 //MARK - change Controller
 extension TWContainerEmbedController {
     
-    private func swapFromViewController(fromViewController: UIViewController, toViewController: UIViewController) {
+    private func swapFromViewController(toViewController: UIViewController) {
         let parentView = containerTargetView()
+        guard let fromViewController = currentViewController else {
+            
+            self.addChildViewController(toViewController)
+            let destView = toViewController.view
+            destView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
+            let parentView = containerTargetView()
+            destView.frame = parentView.bounds
+            parentView.addSubview(destView)
+            toViewController.didMoveToParentViewController(self)
+            
+            currentViewController = toViewController
+            self.transitionInProgress = false
+            
+            
+            return
+        }
         toViewController.view.frame = parentView.bounds
-        
         fromViewController.willMoveToParentViewController(nil)
         self.addChildViewController(toViewController)
         
@@ -101,6 +112,8 @@ extension TWContainerEmbedController {
                 self.transitionInProgress = false
             }
         }
+        
+        currentViewController = toViewController
     }
 }
 
