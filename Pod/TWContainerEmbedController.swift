@@ -115,4 +115,8 @@ extension TWContainerEmbedController {
         controllerDictionary[identifier] = viewController
         durationDictionary[identifier] = changeDuration
     }
+    
+    public func getEmbedController(identifier: String) -> UIViewController? {
+        return controllerDictionary[identifier]
+    }
 }
