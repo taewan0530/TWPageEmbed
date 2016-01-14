@@ -41,22 +41,21 @@ public class TWScrollEmbedController: UIViewController {
         self.initEmbedController()
     }
     
+    public override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        self.updateLayouts()
+    }
+    
     func addEmbedController(controller: UIViewController){
-        if let scrollView = self.scrollView {
-            let idx = CGFloat(embedControllers.count)
-            
-            embedControllers.append(controller)
-            self.addChildViewController(controller)
-            
-            
-            controller.view.frame.size = scrollView.frame.size
-            controller.view.frame.origin.x = scrollView.frame.size.width * idx
-            
-            scrollView.addSubview(controller.view)
-            controller.didMoveToParentViewController(self)
-            
-            scrollView.contentSize = CGSizeMake(scrollView.frame.size.width * (idx+1), scrollView.frame.size.height)
-        }
+        guard let scrollView = self.scrollView else { return }
+        
+        embedControllers.append(controller)
+        self.addChildViewController(controller)
+        
+        scrollView.addSubview(controller.view)
+        controller.didMoveToParentViewController(self)
+        
+        self.updateLayouts()
     }
     
     private func initEmbedController(){
@@ -64,6 +63,21 @@ public class TWScrollEmbedController: UIViewController {
             let identifier = "embed-\(i)"
             self.performSegueWithIdentifier(identifier, sender: self)
         }
+    }
+    
+    private func updateLayouts(){
+        guard let scrollView = self.scrollView else { return }
+        
+        let len = embedControllers.count
+        let width = CGRectGetWidth(scrollView.bounds)
+        let height = CGRectGetHeight(scrollView.bounds)
+        
+        for (idx, controller) in embedControllers.enumerate() {
+            controller.view.bounds.size = scrollView.bounds.size
+            controller.view.frame.origin.x = width * CGFloat(idx)
+        }
+        
+        scrollView.contentSize = CGSizeMake(width * CGFloat(len + 1), height)
     }
     
 }
