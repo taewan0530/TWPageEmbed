@@ -41,6 +41,7 @@ public class TWScrollEmbedController: UIViewController {
         self.initEmbedController()
     }
     
+
     public override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         self.updateLayouts()
@@ -76,6 +77,7 @@ public class TWScrollEmbedController: UIViewController {
             controller.view.bounds.size = scrollView.bounds.size
             controller.view.frame.origin.x = width * CGFloat(idx)
         }
+        
         scrollView.contentSize = CGSizeMake(width * CGFloat(len + 1), height)
     }
     
