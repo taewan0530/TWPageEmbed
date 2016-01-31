@@ -19,9 +19,14 @@ public class TWContainerEmbedController: UIViewController {
     private var _currentDuration: CGFloat = 0
     
     private var currentViewController: UIViewController? {
-        didSet{
+        willSet(newController) {
+            if let controller = newController {
+                willChangeController(controller)
+            }
+        }
+        didSet {
             if let controller = currentViewController {
-                changeController(controller)
+                didChangeController(controller)
             }
         }
     }
@@ -84,9 +89,14 @@ public class TWContainerEmbedController: UIViewController {
 //MARK - change Controller
 extension TWContainerEmbedController {
     
-    public func changeController(toViewController: UIViewController) {
+    public func willChangeController(toViewController: UIViewController) {
         //MARK - override point
     }
+    
+    public func didChangeController(toViewController: UIViewController) {
+        //MARK - override point
+    }
+
     
     private func swapFromViewController(toViewController: UIViewController) {
         let parentView = containerTargetView()
