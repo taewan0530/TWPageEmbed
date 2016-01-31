@@ -18,7 +18,13 @@ public class TWContainerEmbedController: UIViewController {
     private var _currentSegueIdentifier: String?
     private var _currentDuration: CGFloat = 0
     
-    private var currentViewController: UIViewController?
+    private var currentViewController: UIViewController? {
+        didSet{
+            if let controller = currentViewController {
+                changeController(controller)
+            }
+        }
+    }
     
     public var currentSegueIdentifier: String? {
         get {
@@ -78,11 +84,15 @@ public class TWContainerEmbedController: UIViewController {
 //MARK - change Controller
 extension TWContainerEmbedController {
     
+    public func changeController(toViewController: UIViewController) {
+        //MARK - override point
+    }
+    
     private func swapFromViewController(toViewController: UIViewController) {
         let parentView = containerTargetView()
         guard let fromViewController = currentViewController else {
             
-            self.addChildViewController(toViewController)
+            addChildViewController(toViewController)
             let destView = toViewController.view
             destView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
             let parentView = containerTargetView()
@@ -90,10 +100,8 @@ extension TWContainerEmbedController {
             parentView.addSubview(destView)
             toViewController.didMoveToParentViewController(self)
             
+            transitionInProgress = false
             currentViewController = toViewController
-            self.transitionInProgress = false
-            
-            
             return
         }
         toViewController.view.frame = parentView.bounds
@@ -114,6 +122,7 @@ extension TWContainerEmbedController {
         }
         
         currentViewController = toViewController
+        
     }
 }
 
