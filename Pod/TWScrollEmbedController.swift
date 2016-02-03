@@ -9,6 +9,11 @@
 
 import UIKit
 
+protocol TWScrollEmbedControllerDelegate {
+    func willScrollShowController()
+    func didScrollShowController()
+}
+
 public class TWScrollEmbedController: UIViewController {
     
     private var embedControllers = [UIViewController]()
@@ -16,7 +21,14 @@ public class TWScrollEmbedController: UIViewController {
     
     public var useAnimation: Bool = true
     public var currentPage: Int = 0 {
-        didSet{
+        willSet {
+            guard 0 <= newValue && newValue < embedControllers.count else { return }
+            let controlelr = embedControllers[newValue]
+            if let delegate = controlelr as? TWScrollEmbedControllerDelegate {
+                delegate.willScrollShowController()
+            }
+        }
+        didSet {
             currentPage = max(0, min(embedCount - 1, currentPage))
             
             if let scrollView = self.scrollView {
@@ -28,6 +40,9 @@ public class TWScrollEmbedController: UIViewController {
                 }
                 
                 scrollView.scrollRectToVisible(frame, animated: useAnimation)
+                if let delegate = currentController as? TWScrollEmbedControllerDelegate {
+                    delegate.didScrollShowController()
+                }
             }
         }//didset
     }
@@ -41,7 +56,7 @@ public class TWScrollEmbedController: UIViewController {
         self.initEmbedController()
     }
     
-
+    
     public override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         self.updateLayouts()
