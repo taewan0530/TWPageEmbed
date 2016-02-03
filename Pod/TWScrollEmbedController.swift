@@ -9,9 +9,10 @@
 
 import UIKit
 
+@objc
 public protocol TWScrollEmbedControllerDelegate {
-    func willScrollShowController()
-    func didScrollShowController()
+    optional func willScrollShowController()
+    optional func didScrollShowController()
 }
 
 public class TWScrollEmbedController: UIViewController {
@@ -25,7 +26,7 @@ public class TWScrollEmbedController: UIViewController {
             guard 0 <= newValue && newValue < embedControllers.count else { return }
             let controlelr = embedControllers[newValue]
             if let delegate = controlelr as? TWScrollEmbedControllerDelegate {
-                delegate.willScrollShowController()
+                delegate.willScrollShowController?()
             }
         }
         didSet {
@@ -41,7 +42,7 @@ public class TWScrollEmbedController: UIViewController {
                 
                 scrollView.scrollRectToVisible(frame, animated: useAnimation)
                 if let delegate = currentController as? TWScrollEmbedControllerDelegate {
-                    delegate.didScrollShowController()
+                    delegate.didScrollShowController?()
                 }
             }
         }//didset
