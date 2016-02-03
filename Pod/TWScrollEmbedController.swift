@@ -9,7 +9,7 @@
 
 import UIKit
 
-protocol TWScrollEmbedControllerDelegate {
+public protocol TWScrollEmbedControllerDelegate {
     func willScrollShowController()
     func didScrollShowController()
 }
