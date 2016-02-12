@@ -90,7 +90,7 @@ public class TWScrollEmbedController: UIViewController {
         let height = CGRectGetHeight(scrollView.bounds)
         
         for (idx, controller) in embedControllers.enumerate() {
-            controller.view.bounds.size = scrollView.bounds.size
+            controller.view.frame.size = scrollView.bounds.size
             controller.view.frame.origin.x = width * CGFloat(idx)
         }
         
