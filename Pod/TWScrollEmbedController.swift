@@ -65,7 +65,8 @@ public class TWScrollEmbedController: UIViewController {
     
     func addEmbedController(controller: UIViewController){
         guard let scrollView = self.scrollView else { return }
-        
+        scrollView.layoutIfNeeded()
+
         embedControllers.append(controller)
         self.addChildViewController(controller)
         
