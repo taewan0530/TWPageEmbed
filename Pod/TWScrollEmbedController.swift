@@ -9,11 +9,7 @@
 
 import UIKit
 
-@objc
-public protocol TWScrollEmbedControllerDelegate {
-    optional func willScrollShowController()
-    optional func didScrollShowController()
-}
+
 
 public class TWScrollEmbedController: UIViewController {
     
@@ -25,9 +21,7 @@ public class TWScrollEmbedController: UIViewController {
         willSet {
             guard 0 <= newValue && newValue < embedControllers.count else { return }
             let controlelr = embedControllers[newValue]
-            if let delegate = controlelr as? TWScrollEmbedControllerDelegate {
-                delegate.willScrollShowController?()
-            }
+            controlelr.viewWillAppear(useAnimation)
         }
         didSet {
             currentPage = max(0, min(embedCount - 1, currentPage))
@@ -39,17 +33,22 @@ public class TWScrollEmbedController: UIViewController {
                 if currentPage <= embedControllers.count{
                     currentController = embedControllers[currentPage]
                 }
-                
                 scrollView.scrollRectToVisible(frame, animated: useAnimation)
-                if let delegate = currentController as? TWScrollEmbedControllerDelegate {
-                    delegate.didScrollShowController?()
+                
+                if useAnimation == false {
+                    currentController!.viewDidAppear(false)
                 }
             }
         }//didset
     }
     
     @IBInspectable var embedCount: Int = 0
-    @IBOutlet public weak var scrollView: UIScrollView?
+    @IBOutlet public weak var scrollView: UIScrollView? {
+        didSet{
+            guard let scrollView = self.scrollView else { return }
+            scrollView.delegate = self
+        }
+    }
     
     override public func viewDidLoad() {
         super.viewDidLoad()
@@ -66,14 +65,19 @@ public class TWScrollEmbedController: UIViewController {
     func addEmbedController(controller: UIViewController){
         guard let scrollView = self.scrollView else { return }
         scrollView.layoutIfNeeded()
-
-        embedControllers.append(controller)
-        self.addChildViewController(controller)
         
+        
+        embedControllers.append(controller)
         scrollView.addSubview(controller.view)
+        
+        addChildViewController(controller)
         controller.didMoveToParentViewController(self)
         
         self.updateLayouts()
+    }
+    
+    public override func shouldAutomaticallyForwardAppearanceMethods() -> Bool {
+        return false
     }
     
     private func initEmbedController(){
@@ -81,6 +85,7 @@ public class TWScrollEmbedController: UIViewController {
             let identifier = "embed-\(i)"
             self.performSegueWithIdentifier(identifier, sender: self)
         }
+        currentPage = 0
     }
     
     private func updateLayouts(){
@@ -97,5 +102,12 @@ public class TWScrollEmbedController: UIViewController {
         
         scrollView.contentSize = CGSizeMake(width * CGFloat(len + 1), height)
     }
-    
+}
+
+extension TWScrollEmbedController: UIScrollViewDelegate {
+    public func scrollViewDidEndScrollingAnimation(scrollView: UIScrollView) {
+        if let controlelr = currentController {
+            controlelr.viewDidAppear(useAnimation)
+        }
+    }
 }
