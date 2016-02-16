@@ -5,8 +5,6 @@
 //  Created by kimtaewan on 2015. 12. 24..
 //  Copyright © 2015년 prnd. All rights reserved.
 //
-
-
 import UIKit
 
 
@@ -66,12 +64,11 @@ public class TWScrollEmbedController: UIViewController {
         guard let scrollView = self.scrollView else { return }
         scrollView.layoutIfNeeded()
         
-        
-        embedControllers.append(controller)
-        scrollView.addSubview(controller.view)
-        
         addChildViewController(controller)
         controller.didMoveToParentViewController(self)
+
+        embedControllers.append(controller)
+        scrollView.addSubview(controller.view)
         
         self.updateLayouts()
     }
