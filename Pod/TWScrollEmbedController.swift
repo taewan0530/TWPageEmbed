@@ -58,6 +58,30 @@ public class TWScrollEmbedController: UIViewController {
     public override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         self.updateLayouts()
+        if let currentController = self.currentController {
+            currentController.viewWillAppear(animated)
+        }
+    }
+    
+    public override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        if let currentController = self.currentController {
+            currentController.viewDidAppear(animated)
+        }
+    }
+    
+    public override func viewDidDisappear(animated: Bool) {
+        super.viewDidDisappear(animated)
+        if let currentController = self.currentController {
+            currentController.viewDidDisappear(animated)
+        }
+    }
+    
+    public override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        if let currentController = self.currentController {
+            currentController.viewWillDisappear(animated)
+        }
     }
     
     func addEmbedController(controller: UIViewController){
@@ -66,7 +90,7 @@ public class TWScrollEmbedController: UIViewController {
         
         addChildViewController(controller)
         controller.didMoveToParentViewController(self)
-
+        
         embedControllers.append(controller)
         scrollView.addSubview(controller.view)
         
@@ -82,7 +106,9 @@ public class TWScrollEmbedController: UIViewController {
             let identifier = "embed-\(i)"
             self.performSegueWithIdentifier(identifier, sender: self)
         }
-        currentPage = 0
+        if currentController == nil && currentPage <= embedControllers.count{
+            currentController = embedControllers[currentPage]
+        }
     }
     
     private func updateLayouts(){
