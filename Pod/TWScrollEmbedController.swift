@@ -102,7 +102,7 @@ private extension TWScrollEmbedController {
             controller.view.frame.origin.x = width * CGFloat(idx)
         }
         
-        scrollView.contentSize = CGSizeMake(width * CGFloat(len + 1), height)
+        scrollView.contentSize = CGSizeMake(width * CGFloat(len), height)
     }
     
 }
