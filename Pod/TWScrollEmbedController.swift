@@ -50,38 +50,20 @@ public class TWScrollEmbedController: UIViewController {
     
     override public func viewDidLoad() {
         super.viewDidLoad()
-        self.view.layoutIfNeeded()
-        self.initEmbedController()
+        view.setNeedsLayout()
+        view.layoutIfNeeded()
+        initEmbedController()
     }
     
     
     public override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        self.updateLayouts()
-        if let currentController = self.currentController {
-            currentController.viewWillAppear(animated)
-        }
+        updateLayouts()
     }
     
-    public override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
-        if let currentController = self.currentController {
-            currentController.viewDidAppear(animated)
-        }
-    }
     
-    public override func viewDidDisappear(animated: Bool) {
-        super.viewDidDisappear(animated)
-        if let currentController = self.currentController {
-            currentController.viewDidDisappear(animated)
-        }
-    }
-    
-    public override func viewWillDisappear(animated: Bool) {
-        super.viewWillDisappear(animated)
-        if let currentController = self.currentController {
-            currentController.viewWillDisappear(animated)
-        }
+    public override func shouldAutomaticallyForwardAppearanceMethods() -> Bool {
+        return false
     }
     
     func addEmbedController(controller: UIViewController){
@@ -94,24 +76,21 @@ public class TWScrollEmbedController: UIViewController {
         embedControllers.append(controller)
         scrollView.addSubview(controller.view)
         
-        self.updateLayouts()
+        updateLayouts()
     }
-    
-    public override func shouldAutomaticallyForwardAppearanceMethods() -> Bool {
-        return false
-    }
-    
-    private func initEmbedController(){
-        for(var i = 1 ; i <= self.embedCount ; i++){
+}
+
+
+private extension TWScrollEmbedController {
+    func initEmbedController(){
+        for i in 1...self.embedCount {
             let identifier = "embed-\(i)"
             self.performSegueWithIdentifier(identifier, sender: self)
         }
-        if currentController == nil && currentPage <= embedControllers.count{
-            currentController = embedControllers[currentPage]
-        }
+        currentPage = 0
     }
     
-    private func updateLayouts(){
+    func updateLayouts(){
         guard let scrollView = self.scrollView else { return }
         
         let len = embedControllers.count
@@ -125,7 +104,10 @@ public class TWScrollEmbedController: UIViewController {
         
         scrollView.contentSize = CGSizeMake(width * CGFloat(len + 1), height)
     }
+    
 }
+
+
 
 extension TWScrollEmbedController: UIScrollViewDelegate {
     public func scrollViewDidEndScrollingAnimation(scrollView: UIScrollView) {
