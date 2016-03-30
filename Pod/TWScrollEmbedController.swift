@@ -12,7 +12,7 @@ import UIKit
 public class TWScrollEmbedController: UIViewController {
     
     private var embedControllers = [UIViewController]()
-    private(set) var currentController: UIViewController?
+    public private(set) var currentController: UIViewController?
     
     public var useAnimation: Bool = true
     public var currentPage: Int = 0 {
