@@ -40,16 +40,15 @@ public class TWScrollEmbedController: UIViewController {
                     }) { _ in
                         self.beforeController?.viewDidDisappear(true)
                         self.currentController?.viewDidAppear(true)
+                        self.beforeController = self.currentController
                     }
                 } else {
                     scrollView.contentOffset = CGPointMake(x, 0)
                     beforeController?.viewDidDisappear(false)
                     currentController?.viewDidAppear(false)
+                    beforeController = currentController
                 }
                 
-                
-                
-                beforeController = currentController
             }
         }//didset
     }
