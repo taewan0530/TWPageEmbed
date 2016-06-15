@@ -72,8 +72,24 @@ public class TWScrollEmbedController: UIViewController {
     public override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         updateLayouts()
+        currentController?.viewWillAppear(animated)
     }
     
+    public override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        currentController?.viewDidAppear(animated)
+    }
+    
+    public override func viewDidDisappear(animated: Bool) {
+        super.viewDidDisappear(animated)
+        currentController?.viewDidDisappear(animated)
+    }
+    
+    public override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        currentController?.viewWillDisappear(animated)
+        
+    }
     
     public override func shouldAutomaticallyForwardAppearanceMethods() -> Bool {
         return false
