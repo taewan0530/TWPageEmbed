@@ -31,13 +31,23 @@ public class TWScrollEmbedController: UIViewController {
             currentPage = max(0, min(embedCount - 1, currentPage))
             
             if let scrollView = self.scrollView {
-                var frame = scrollView.frame
-                frame.origin.x = frame.size.width * CGFloat(currentPage)
                 
-                scrollView.scrollRectToVisible(frame, animated: useAnimation)
+                let x = scrollView.frame.size.width * CGFloat(currentPage)
                 
-                beforeController?.viewDidDisappear(useAnimation)
-                currentController?.viewDidAppear(useAnimation)
+                if useAnimation {
+                    UIView.animateWithDuration(0.3, animations: {
+                        scrollView.contentOffset = CGPointMake(x, 0)
+                    }) { _ in
+                        self.beforeController?.viewDidDisappear(true)
+                        self.currentController?.viewDidAppear(true)
+                    }
+                } else {
+                    scrollView.contentOffset = CGPointMake(x, 0)
+                    beforeController?.viewDidDisappear(false)
+                    currentController?.viewDidAppear(false)
+                }
+                
+                
                 
                 beforeController = currentController
             }
