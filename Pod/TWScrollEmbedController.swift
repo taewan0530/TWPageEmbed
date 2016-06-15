@@ -12,14 +12,20 @@ import UIKit
 public class TWScrollEmbedController: UIViewController {
     
     private var embedControllers = [UIViewController]()
-    public private(set) var currentController: UIViewController?
+    
+    private var beforeController: UIViewController?
+    public var currentController: UIViewController? {
+        return embedControllers[currentPage]
+    }
     
     public var useAnimation: Bool = true
     public var currentPage: Int = 0 {
         willSet {
             guard 0 <= newValue && newValue < embedControllers.count else { return }
+            
             let controlelr = embedControllers[newValue]
             controlelr.viewWillAppear(useAnimation)
+            beforeController?.viewWillDisappear(useAnimation)
         }
         didSet {
             currentPage = max(0, min(embedCount - 1, currentPage))
@@ -28,14 +34,12 @@ public class TWScrollEmbedController: UIViewController {
                 var frame = scrollView.frame
                 frame.origin.x = frame.size.width * CGFloat(currentPage)
                 
-                if currentPage <= embedControllers.count{
-                    currentController = embedControllers[currentPage]
-                }
                 scrollView.scrollRectToVisible(frame, animated: useAnimation)
                 
-                if useAnimation == false {
-                    currentController!.viewDidAppear(false)
-                }
+                beforeController?.viewDidDisappear(useAnimation)
+                currentController?.viewDidAppear(useAnimation)
+                
+                beforeController = currentController
             }
         }//didset
     }
