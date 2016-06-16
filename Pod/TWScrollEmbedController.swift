@@ -28,6 +28,7 @@ public class TWScrollEmbedController: UIViewController {
             beforeController?.viewWillDisappear(useAnimation)
         }
         didSet {
+            if oldValue == currentPage { return }
             currentPage = max(0, min(embedCount - 1, currentPage))
             
             if let scrollView = self.scrollView {
