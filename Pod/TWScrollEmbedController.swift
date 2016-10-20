@@ -18,6 +18,7 @@ public class TWScrollEmbedController: UIViewController {
         return embedControllers[currentPage]
     }
     
+    public var initPage: Int = 0
     public var useAnimation: Bool = true
     public var currentPage: Int = 0 {
         willSet {
@@ -66,7 +67,11 @@ public class TWScrollEmbedController: UIViewController {
         super.viewDidLoad()
         view.setNeedsLayout()
         view.layoutIfNeeded()
+        
+        let beforeAnimation = self.useAnimation
+        self.useAnimation = false
         initEmbedController()
+        self.useAnimation = beforeAnimation
     }
     
     
@@ -117,7 +122,8 @@ private extension TWScrollEmbedController {
             let identifier = "embed-\(i)"
             self.performSegueWithIdentifier(identifier, sender: self)
         }
-        currentPage = 0
+        
+        currentPage = initPage
     }
     
     func updateLayouts(){
