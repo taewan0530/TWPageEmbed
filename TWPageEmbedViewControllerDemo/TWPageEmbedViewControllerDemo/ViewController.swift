@@ -24,11 +24,11 @@ class ViewController: TWContainerEmbedController {
         // Dispose of any resources that can be recreated.
     }
 
-    @IBAction func tapFirst(sender: AnyObject) {
+    @IBAction func tapFirst(_ sender: AnyObject) {
         self.currentSegueIdentifier = "first"
     }
 
-    @IBAction func tapSecound(sender: AnyObject) {
+    @IBAction func tapSecound(_ sender: AnyObject) {
         self.currentSegueIdentifier = "secound"
     }
     

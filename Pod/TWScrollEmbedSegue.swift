@@ -8,10 +8,10 @@
 
 import UIKit
 
-public class TWScrollEmbedSegue: UIStoryboardSegue {
-    public override func perform() {
-        if let sourceViewController = sourceViewController as? TWScrollEmbedController {
-            sourceViewController.addEmbedController(destinationViewController)
+open class TWScrollEmbedSegue: UIStoryboardSegue {
+    open override func perform() {
+        if let sourceViewController = source as? TWScrollEmbedController {
+            sourceViewController.addEmbedController(destination)
         } else {
             assertionFailure("SourceViewController must be TWScrollEmbedViewController")
         }

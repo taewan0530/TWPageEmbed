@@ -1,4 +1,4 @@
-@version = "0.3.0"
+@version = "1.0.0"
 Pod::Spec.new do |s|
   s.name         = 'TWPageEmbed'
   s.version      = @version

@@ -9,10 +9,10 @@
 import Foundation
 import UIKit
 
-public class TWContainerEmbedSegue: UIStoryboardSegue {
+open class TWContainerEmbedSegue: UIStoryboardSegue {
         
-    public override func perform() {
-        guard let containerEmbedController = self.sourceViewController as? TWContainerEmbedController else {
+    open override func perform() {
+        guard let containerEmbedController = self.source as? TWContainerEmbedController else {
             assertionFailure("SourceViewController must be TWContainerEmbedController")
             return
         }
@@ -20,7 +20,7 @@ public class TWContainerEmbedSegue: UIStoryboardSegue {
             assertionFailure("TWContainerEmbedSegue must have identifier")
             return
         }
-        containerEmbedController.addEmbedController(identifier, viewController: self.destinationViewController)
+        containerEmbedController.addEmbedController(identifier, viewController: self.destination)
     }
 }
 
