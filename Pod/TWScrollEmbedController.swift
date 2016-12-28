@@ -43,7 +43,7 @@ open class TWScrollEmbedController: UIViewController {
                         self.beforeController?.viewDidDisappear(true)
                         self.currentController?.viewDidAppear(true)
                         self.beforeController = self.currentController
-                    }) 
+                    })
                 } else {
                     scrollView.contentOffset = CGPoint(x: x, y: 0)
                     beforeController?.viewDidDisappear(false)
@@ -70,7 +70,7 @@ open class TWScrollEmbedController: UIViewController {
         
         let beforeAnimation = self.useAnimation
         self.useAnimation = false
-        initEmbedController()
+        performEmbedController()
         self.useAnimation = beforeAnimation
     }
     
@@ -113,16 +113,23 @@ open class TWScrollEmbedController: UIViewController {
         
         updateLayouts()
     }
+    
+    open func initEmbedControllers() {
+        
+    }
 }
 
 
 private extension TWScrollEmbedController {
-    func initEmbedController(){
-        for i in 1...self.embedCount {
-            let identifier = "embed-\(i)"
-            self.performSegue(withIdentifier: identifier, sender: self)
+    func performEmbedController(){
+        if 0 < embedCount {
+            for i in 1...self.embedCount {
+                let identifier = "embed-\(i)"
+                self.performSegue(withIdentifier: identifier, sender: self)
+            }
         }
         
+        self.initEmbedControllers()
         currentPage = initPage
     }
     
