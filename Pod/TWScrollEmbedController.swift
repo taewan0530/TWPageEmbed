@@ -30,7 +30,7 @@ open class TWScrollEmbedController: UIViewController {
         }
         didSet {
             if oldValue == currentPage { return }
-            currentPage = max(0, min(embedCount - 1, currentPage))
+            currentPage = max(0, min((self.embedControllers.count - 1), currentPage))
             
             if let scrollView = self.scrollView {
                 
@@ -54,6 +54,7 @@ open class TWScrollEmbedController: UIViewController {
             }
         }//didset
     }
+    
     
     @IBInspectable var embedCount: Int = 0
     @IBOutlet open weak var scrollView: UIScrollView? {
