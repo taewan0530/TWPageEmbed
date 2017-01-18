@@ -9,7 +9,16 @@
 import Foundation
 import UIKit
 
+@objc public protocol TWContainerEmbedControllerDelegate: class {
+    @objc optional func willChangeContainerEmbed(_ viewController: UIViewController)
+    @objc optional func didChangeContainerEmbed(_ viewController: UIViewController)
+}
+
 open class TWContainerEmbedController: UIViewController {
+    
+    @IBOutlet public fileprivate(set) weak var containerView: UIView?
+    @IBInspectable var initIdentifier: String?
+    
     fileprivate var transitionInProgress = false
     
     fileprivate var controllerDictionary = [String: UIViewController]()
@@ -18,18 +27,19 @@ open class TWContainerEmbedController: UIViewController {
     fileprivate var _currentSegueIdentifier: String?
     fileprivate var _currentDuration: CGFloat = 0
     
-    fileprivate var currentViewController: UIViewController? {
+    public fileprivate(set) var currentEmbedController: UIViewController? {
         willSet(newController) {
             if let controller = newController {
-                willChangeController(controller)
+                delegate?.willChangeContainerEmbed?(controller)
             }
         }
         didSet {
-            if let controller = currentViewController {
-                didChangeController(controller)
+            if let controller = currentEmbedController {
+                delegate?.didChangeContainerEmbed?(controller)
             }
         }
     }
+    
     
     open var currentSegueIdentifier: String? {
         get {
@@ -51,9 +61,9 @@ open class TWContainerEmbedController: UIViewController {
         }
     }
     
-    @IBOutlet weak var containerView: UIView?
-    @IBInspectable var initIdentifier: String?
     
+    
+    public weak var delegate: TWContainerEmbedControllerDelegate?
     
     open override func viewDidLoad() {
         super.viewDidLoad()
@@ -70,7 +80,7 @@ open class TWContainerEmbedController: UIViewController {
             return
         }
         
-        if currentViewController != nil {
+        if currentEmbedController != nil {
             guard let identifier = segue.identifier else { return }
             if identifier == currentSegueIdentifier { return }
             self._currentDuration = durationDictionary[identifier] ?? 0
@@ -89,18 +99,10 @@ open class TWContainerEmbedController: UIViewController {
 //MARK - change Controller
 extension TWContainerEmbedController {
     
-    public func willChangeController(_ toViewController: UIViewController) {
-        //MARK - override point
-    }
-    
-    public func didChangeController(_ toViewController: UIViewController) {
-        //MARK - override point
-    }
-
     
     fileprivate func swapFromViewController(_ toViewController: UIViewController) {
         let parentView = containerTargetView()
-        guard let fromViewController = currentViewController else {
+        guard let fromViewController = currentEmbedController else {
             
             addChildViewController(toViewController)
             let destView = toViewController.view
@@ -111,7 +113,7 @@ extension TWContainerEmbedController {
             toViewController.didMove(toParentViewController: self)
             
             transitionInProgress = false
-            currentViewController = toViewController
+            currentEmbedController = toViewController
             return
         }
         toViewController.view.frame = parentView.bounds
@@ -131,7 +133,7 @@ extension TWContainerEmbedController {
             }
         }
         
-        currentViewController = toViewController
+        currentEmbedController = toViewController
         
     }
 }
