@@ -105,17 +105,26 @@ extension TWContainerEmbedController {
         guard let fromViewController = currentEmbedController else {
             
             addChildViewController(toViewController)
-            let destView = toViewController.view
-            destView?.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-            let parentView = containerTargetView()
-            destView?.frame = parentView.bounds
-            parentView.addSubview(destView!)
+            if let destView = toViewController.view {
+                //            destView?.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+                let parentView = containerTargetView()
+                destView.frame = parentView.bounds
+                parentView.addSubview(destView)
+                
+                //
+                destView.translatesAutoresizingMaskIntoConstraints = false
+                let bindings = ["view": destView]
+                parentView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|[view]|", options:[], metrics:nil, views: bindings))
+                parentView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[view]|", options:[], metrics:nil, views: bindings))
+            }
+            //
             toViewController.didMove(toParentViewController: self)
             
             transitionInProgress = false
             currentEmbedController = toViewController
             return
         }
+        
         toViewController.view.frame = parentView.bounds
         fromViewController.willMove(toParentViewController: nil)
         self.addChildViewController(toViewController)
