@@ -20,7 +20,6 @@ open class TWContainerEmbedSegue: UIStoryboardSegue {
             assertionFailure("TWContainerEmbedSegue must have identifier")
             return
         }
-        containerEmbedController.addEmbedController(identifier, viewController: self.destination)
     }
 }
 
